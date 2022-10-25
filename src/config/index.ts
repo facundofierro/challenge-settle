@@ -5,7 +5,7 @@ dotenv.config();
 const FIXER_API_KEY = process.env.FIXER_API_KEY || '';
 const FIXER_URL = process.env.FIXER_URL || 'http://data.fixer.io/api/latest';
 
-const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 9650;
+const SERVER_PORT = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 9000;
 const API_KEY = process.env.API_KEY || '';
 const DEFAULT_FEE = process.env.DEFAULT_FEE ? Number(process.env.DEFAULT_FEE) : 0.01;
 

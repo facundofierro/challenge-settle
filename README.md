@@ -7,10 +7,9 @@ Some not done features:
 - Errors management should be improved
 
 ### Installation
-Step by step instullation explanation, or a quick introduction of the minimal setup you need to get the server application running.
+Step by step installation explanation, or a quick introduction of the minimal setup you need to get the server application running.
 
 Needs to create a .env file copying values from .env.example modifying values as desired.
-
 
 ```shell
 yarn
@@ -28,25 +27,8 @@ docker run mytag
 
 ### Endpoints
 
-- `POST` `/rates` Get currency rates applying a fee. 
-Body example:
-```shell
-{
-    "pairs": ["BRLARS","EURUSD","ARSEUR", "EURARS", "EURBRL"],
-    "fee": 0.05  
-}
-```
-
-
-Sample calls:
-```shell
-http://localhost:9650/transaction
-http://localhost:9650/contract/bin
-http://localhost:9650/contract/abi?hash=0x6e84a6216eA6dACC71eE8E6b0a5B7322EEbC0fDd
-http://localhost:9650/contract/abi?hash=0x60aE616a2155Ee3d9A68541Ba4544862310933d4
-http://localhost:9650/contract/abi?hash=0x454E67025631C065d3cFAD6d71E6892f74487a15
-
-```
+- `GET` `/rates?fee=0.1&pairs=EURUSD,USDGBP` Get currency rates applying a fee. 
+- `GET` `/healthcheck` Returns OK when the application is running. 
 
 ### Running tests
 To run unit test and see test coverage you can run:
@@ -55,17 +37,17 @@ To run unit test and see test coverage you can run:
 yarn test
 ```
 
-#### Requirements.
+### Requirements.
 
-Backend Dev - Challenge
-Purpose
+## Backend Dev - Challenge
+# Purpose
 The purpose of this document is to state the goals of a tech challenge to be
 completed by a candidate that is seeking to join the Settle tech team.
-Goal
+# Goal
 The goal of this challenge is to evaluate the candidate’s skills for backend
 development in a context of understanding particular business rules of our industry.
-Challenge
-Build an API that allows:
+# Challenge
+# Build an API that allows:
 To create rates by obtaining FX rates from a given provider.
 To add a mark-up fee over the obtained FX rate
 To retrieve a list of these rates detailing:
@@ -74,15 +56,15 @@ Original rate
 Fee %
 Fee amount
 Rate with mark-up fee applied
-Deliverables
+# Deliverables
 Host the solution in an AWS free tier instance.
 Document the API endpoints using Swagger
 The candidate must provide a Postman Collection to interact with the API.
 
-Stack
+# Stack
 NodeJS, HapiJS, MongoDB
 
-Pairs
+# Pairs
 EURUSD
 EURARS
 USDARS

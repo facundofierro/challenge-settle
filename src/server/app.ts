@@ -1,4 +1,5 @@
 import Hapi, { Server } from '@hapi/hapi';
+import Path from 'path';
 import * as HapiSwagger from 'hapi-swagger';
 import Inert from '@hapi/inert';
 import Vision from '@hapi/vision';
@@ -24,28 +25,33 @@ class App {
     this.server = Hapi.server({
       port: this.port,
       host: '0.0.0.0',
+      routes: {
+        files: {
+          relativeTo: Path.join(__dirname, 'public'),
+        },
+      },
     });
     this.server.auth.scheme('basic', authScheme);
     this.server.auth.strategy('simple', 'basic');
-    this.registerRoutes(this.routes);
     return this.server;
   }
 
-  private registerRoutes = (routes: AppRoute[]) => {
-    routes.forEach((route: AppRoute) => {
+  public registerRoutes = () => {
+    const routes = this.routes.map((route: AppRoute) => {
       const [method, path, controller] = route;
-      this.server?.route({
+      return {
         method,
         path,
         handler: controller.handler,
         options: {
+          auth: 'simple',
           ...controller.options,
           validate: controller.validations,
           plugins: controller.plugins,
-          auth: 'simple',
         },
-      });
+      };
     });
+    this.server.route(routes);
   };
 
   public listen = async () => {
@@ -64,6 +70,7 @@ class App {
       ];
       await this.server.register(plugins);
       await this.server.start();
+      this.registerRoutes();
       console.log(`Server running on ${this.server?.info?.uri}`);
     } catch (error: any) {
       console.log(`Error starting server: ${error.message}`);

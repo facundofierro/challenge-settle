@@ -63,10 +63,10 @@ export const getFixerRate = async (base: CurrencySymbol, symbols: CurrencySymbol
 //   { pair: { from: 'EUR', to: 'ARS' }, originalRate: 123.45 }
 const fixerResponseToPairInfo = (fixerResponse: FixerResponse, tryReverse: boolean) => {
   const {
-    base, rates, success, error,
+    base, rates, error,
   } = fixerResponse.data;
   // If error, return the error or inverse pairs if error.code === 105
-  if (!success && tryReverse) {
+  if (error?.code === 105 && tryReverse) {
     const reversedPairs = Object.entries(rates || []).map(([to]) => ({
       pair: { from: to as CurrencySymbol, to: base as CurrencySymbol },
       reversed: error?.code === 105 ? true : undefined,
